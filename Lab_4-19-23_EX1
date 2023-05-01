@@ -1,0 +1,21 @@
+//1. Draw lanes in the background
+function setup() {
+  createCanvas(400, 400);
+
+}
+
+function draw() {
+  background(220);
+  noStroke();
+  fill("gray")
+  rect(0,0,width,height/7)
+  rect(0,3*height/7,width,height/7);
+  rect(0,6*height/7,width,height/7);
+  fill("black")
+  rect(0,1*height/7,width,height/7);
+  rect(0,2*height/7,width,height/7);
+  rect(0,4*height/7,width,height/7);
+  rect(0,5*height/7,width,height/7);
+  
+}
+

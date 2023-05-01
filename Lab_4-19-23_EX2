@@ -1,0 +1,75 @@
+//1. Draw lanes in the background
+//2. Draw cars that bounce off the walls in the lanes. Make sure to use classes to randomize their speed and color. Optional: You make them continuously loop through.
+function setup() {
+  createCanvas(400, 400);
+  cars = [];
+  carColors = ["red","green","blue","yellow"]
+  spaceBetweenCars = 140
+  carsPerLane = 6
+  lanes = 5
+  speeds = [-2,2];
+  for(i = 0; i < lanes; i ++){
+    carSpeed = random(speeds)
+    for(j = 0; j < carsPerLane;j++){
+      
+      cars.push(new Car(j*spaceBetweenCars,
+                        height/7 + height/7 *i,
+                        random(30,70),
+                        carSpeed,
+                        random(carColors)
+                       )
+               )
+    }
+  }
+}
+
+function draw() {
+  background(220);
+  noStroke();
+  fill("gray")
+  rect(0,0,width,height/7)
+  rect(0,6*height/7,width,height/7);
+  fill("black")
+  rect(0,1*height/7,width,height/7);
+  rect(0,2*height/7,width,height/7);
+  rect(0,4*height/7,width,height/7);
+  rect(0,5*height/7,width,height/7);
+  rect(0,3*height/7,width,height/7);
+  
+  for(carsShown = 0; carsShown < cars.length ; carsShown++){
+    cars[carsShown].show();
+    cars[carsShown].update();
+  }
+}
+
+class Car {
+	constructor(x, y,length,speed,carColor) { //car class (x position, y position, length, speed)
+		this.x = x;
+		this.y = y;
+		this.length = length;
+        this.speed = speed;
+        this.carColor = carColor
+	}
+  
+	update() {
+
+      this.x = this.x + this.speed;
+
+      //this handles if the car goes offscreen. 
+      if(this.x > width + 25){
+        this.x = -10
+      }
+      if(this.x < 0 - 25){
+        this.x = width
+      }         
+    }
+
+  
+	show() { //display cars
+      push();
+      translate(this.x,this.y);
+      fill(this.carColor)
+      rect(0,0,this.length,40)
+      pop();
+	}
+}
